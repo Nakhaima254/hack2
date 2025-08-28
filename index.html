@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Office Mastery - Learn Microsoft Office Suite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        secondary: '#8b5cf6',
+                        dark: '#1e293b',
+                        light: '#f8fafc'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-pattern {
+            background-color: #2563eb;
+            background-image: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .page {
+            display: none;
+        }
+        .active-page {
+            display: block;
+        }
+        .progress-ring {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+        .quiz-option:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .admin-panel {
+            min-height: 500px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2 cursor-pointer" onclick="showPage('home')">
+                    <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
+                        <i class="fas fa-book-open text-white text-xl"></i>
+                    </div>
+                    <span class="text-xl font-bold text-dark">Office Mastery</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a class="text-primary font-medium nav-link" data-page="home">Home</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="courses">Courses</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="pricing">Pricing</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="about">About</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="dashboard">Dashboard</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <a class="text-gray-600 hover:text-primary hidden md:block nav-link" data-page="admin">
+                        <i class="fas fa-cog text-xl"></i>
+                    </a>
+                    <a class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="login">
+                        Sign In
+                    </a>
+                    <button class="md:hidden text-gray-600" id="mobile-menu-btn">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div class="hidden py-4 border-t border-gray-200" id="mobile-menu">
+                <div class="flex flex-col space-y-4">
+                    <a class="text-primary font-medium nav-link" data-page="home">Home</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="courses">Courses</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="pricing">Pricing</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="about">About</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="dashboard">Dashboard</a>
+                    <a class="text-gray-600 hover:text-primary nav-link" data-page="admin">Admin</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Container -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Home Page -->
+        <div id="home" class="page active-page">
+            <!-- Hero Section -->
+            <section class="hero-pattern text-white py-16 md:py-24 rounded-xl mb-16">
+                <div class="container mx-auto px-4">
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 mb-10 md:mb-0">
+                            <h1 class="text-4xl md:text-5xl font-bold mb-4">Master Microsoft Office Suite</h1>
+                            <p class="text-xl mb-8">Learn Word, Excel, PowerPoint and more with our interactive courses. Boost your productivity and career prospects.</p>
+                            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                                <a class="bg-white text-primary px-6 py-3 rounded-lg font-medium text-center hover:bg-blue-50 transition cursor-pointer nav-link" data-page="signup">
+                                    Start Learning Now
+                                </a>
+                                <a class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium text-center hover:bg-white hover:text-primary transition cursor-pointer nav-link" data-page="courses">
+                                    View Courses
+                                </a>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 flex justify-center">
+                            <div class="relative">
+                                <div class="absolute -inset-8 bg-blue-400 rounded-2xl rotate-6 opacity-50"></div>
+                                <div class="relative bg-white rounded-2xl shadow-2xl p-6 text-gray-800 w-full max-w-md">
+                                    <div class="flex justify-between items-center mb-6">
+                                        <h3 class="font-bold text-lg">Microsoft Office Courses</h3>
+                                        <div class="flex space-x-2">
+                                            <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                                            <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                                            <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-4">
+                                        <div class="flex items-center p-3 bg-blue-50 rounded-lg">
+                                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fas fa-file-word text-blue-600"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium">Microsoft Word</h4>
+                                                <p class="text-sm text-gray-600">12 lessons</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center p-3 bg-green-50 rounded-lg">
+                                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fas fa-table-excel text-green-600"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium">Microsoft Excel</h4>
+                                                <p class="text-sm text-gray-600">15 lessons</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center p-3 bg-red-50 rounded-lg">
+                                            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3">
+                                                <i class="fas fa-presentation-screen text-red-600"></i>
+                                            </div>
+                                            <div>
+                                                <h4 class="font-medium">PowerPoint</h4>
+                                                <p class="text-sm text-gray-600">10 lessons</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 pt-4 border-t border-gray-200">
+                                        <div class="flex justify-between items-center">
+                                            <span class="text-sm font-medium">Total Progress</span>
+                                            <span class="text-sm font-bold text-primary">65%</span>
+                                        </div>
+                                        <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+                                            <div class="bg-primary h-2 rounded-full" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="py-16 bg-white rounded-xl mb-16">
+                <div class="container mx-auto px-4">
+                    <h2 class="text-3xl font-bold text-center text-dark mb-12">Why Learn With Us?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-light p-6 rounded-xl text-center">
+                            <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-laptop-code text-primary text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Interactive Lessons</h3>
+                            <p class="text-gray-600">Hands-on exercises and simulations that help you learn by doing.</p>
+                        </div>
+                        <div class="bg-light p-6 rounded-xl text-center">
+                            <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-medal text-secondary text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Earn Certificates</h3>
+                            <p class="text-gray-600">Get certified upon course completion to showcase your skills.</p>
+                        </div>
+                        <div class="bg-light p-6 rounded-xl text-center">
+                            <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-mobile-alt text-green-600 text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Learn Anywhere</h3>
+                            <p class="text-gray-600">Access courses on desktop, tablet, or mobile at your own pace.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Courses Preview Section -->
+            <section class="py-16 bg-gray-50 rounded-xl mb-16">
+                <div class="container mx-auto px-4">
+                    <div class="flex justify-between items-center mb-12">
+                        <h2 class="text-3xl font-bold text-dark">Popular Courses</h2>
+                        <a class="text-primary font-medium flex items-center cursor-pointer nav-link" data-page="courses">
+                            View all courses
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-blue-200 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-primary">
+                                    Microsoft Word
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Word for Beginners</h3>
+                                <p class="text-gray-600 mb-4">Learn document creation, formatting, and professional editing techniques.</p>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-primary"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">12 lessons</span>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">FREE</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-green-200 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-green-700">
+                                    Microsoft Excel
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Advanced Excel</h3>
+                                <p class="text-gray-600 mb-4">Master pivot tables, advanced formulas, and data analysis tools.</p>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-green-700"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">15 lessons</span>
+                                    </div>
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded">PREMIUM</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-red-200 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-red-700">
+                                    PowerPoint
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Presentation Mastery</h3>
+                                <p class="text-gray-600 mb-4">Create stunning presentations with animations and transitions.</p>
+                                <div class="flex justify-between items-center">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-red-700"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">10 lessons</span>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">FREE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="py-16 hero-pattern text-white rounded-xl">
+                <div class="container mx-auto px-4 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">Start Your Learning Journey Today</h2>
+                    <p class="text-xl max-w-2xl mx-auto mb-10">Join thousands of students mastering Microsoft Office with our interactive platform.</p>
+                    <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a class="bg-white text-primary px-8 py-4 rounded-lg font-medium text-lg hover:bg-blue-50 transition cursor-pointer nav-link" data-page="signup">
+                            Sign Up For Free
+                        </a>
+                        <a class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-white hover:text-primary transition cursor-pointer nav-link" data-page="courses">
+                            View Course Catalog
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Courses Page -->
+        <div id="courses" class="page">
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold text-dark mb-2">Our Courses</h1>
+                <p class="text-gray-600">Browse our comprehensive catalog of Microsoft Office courses</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <!-- Filters -->
+                <div class="md:col-span-3">
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <h3 class="text-xl font-bold mb-4">Filters</h3>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-2">Software</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded" checked>
+                                    <span class="ml-2">Microsoft Word</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded" checked>
+                                    <span class="ml-2">Microsoft Excel</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded" checked>
+                                    <span class="ml-2">PowerPoint</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded">
+                                    <span class="ml-2">Outlook</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <h4 class="font-medium mb-2">Level</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded" checked>
+                                    <span class="ml-2">Beginner</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded" checked>
+                                    <span class="ml-2">Intermediate</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded">
+                                    <span class="ml-2">Advanced</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h4 class="font-medium mb-2">Price</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded" checked>
+                                    <span class="ml-2">Free</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="form-checkbox text-primary rounded" checked>
+                                    <span class="ml-2">Premium</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-xl font-bold mb-4">Your Progress</h3>
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-user text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Student</h4>
+                                <p class="text-sm text-gray-600">4 courses enrolled</p>
+                            </div>
+                        </div>
+                        <div class="mb-2 flex justify-between">
+                            <span class="text-sm font-medium">Overall Progress</span>
+                            <span class="text-sm font-bold text-primary">42%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2 mb-6">
+                            <div class="bg-primary h-2 rounded-full" style="width: 42%"></div>
+                        </div>
+                        <a class="block text-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="dashboard">
+                            View Dashboard
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Course List -->
+                <div class="md:col-span-9">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-blue-200 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-primary">
+                                    Microsoft Word
+                                </div>
+                                <div class="absolute bottom-4 right-4 bg-primary text-white px-2 py-1 rounded text-sm">
+                                    Beginner
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Word Essentials</h3>
+                                <p class="text-gray-600 mb-4">Learn the fundamentals of document creation and formatting.</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-primary"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">12 lessons</span>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <a class="block text-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="course-detail">
+                                    View Course
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-green-200 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-green-700">
+                                    Microsoft Excel
+                                </div>
+                                <div class="absolute bottom-4 right-4 bg-primary text-white px-2 py-1 rounded text-sm">
+                                    Beginner
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Excel Basics</h3>
+                                <p class="text-gray-600 mb-4">Master spreadsheets, formulas, and basic data analysis.</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-green-700"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">10 lessons</span>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <a class="block text-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="course-detail">
+                                    View Course
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-red-200 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-red-700">
+                                    PowerPoint
+                                </div>
+                                <div class="absolute bottom-4 right-4 bg-primary text-white px-2 py-1 rounded text-sm">
+                                    Beginner
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Presentation Basics</h3>
+                                <p class="text-gray-600 mb-4">Create engaging presentations with slides and animations.</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-red-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-red-700"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">8 lessons</span>
+                                    </div>
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">FREE</span>
+                                </div>
+                                <a class="block text-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="course-detail">
+                                    View Course
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-blue-300 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-primary">
+                                    Microsoft Word
+                                </div>
+                                <div class="absolute bottom-4 right-4 bg-secondary text-white px-2 py-1 rounded text-sm">
+                                    Advanced
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Word Advanced</h3>
+                                <p class="text-gray-600 mb-4">Master advanced formatting, styles, and document automation.</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-primary"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">15 lessons</span>
+                                    </div>
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded">PREMIUM</span>
+                                </div>
+                                <a class="block text-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="course-detail">
+                                    View Course
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-green-300 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-green-700">
+                                    Microsoft Excel
+                                </div>
+                                <div class="absolute bottom-4 right-4 bg-secondary text-white px-2 py-1 rounded text-sm">
+                                    Advanced
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Excel Data Analysis</h3>
+                                <p class="text-gray-600 mb-4">Advanced formulas, pivot tables, and data visualization.</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-green-700"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">18 lessons</span>
+                                    </div>
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded">PREMIUM</span>
+                                </div>
+                                <a class="block text-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="course-detail">
+                                    View Course
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-md overflow-hidden course-card transition">
+                            <div class="h-40 bg-purple-200 relative">
+                                <div class="absolute top-4 left-4 bg-white px-3 py-1 rounded-full text-sm font-medium text-purple-700">
+                                    Microsoft Office
+                                </div>
+                                <div class="absolute bottom-4 right-4 bg-primary text-white px-2 py-1 rounded text-sm">
+                                    Intermediate
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">Office Integration</h3>
+                                <p class="text-gray-600 mb-4">Learn how to integrate Word, Excel, and PowerPoint.</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-6 h-6 rounded-full bg-purple-100 flex items-center justify-center mr-2">
+                                            <i class="fas fa-book-open text-xs text-purple-700"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-600">14 lessons</span>
+                                    </div>
+                                    <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded">PREMIUM</span>
+                                </div>
+                                <a class="block text-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="course-detail">
+                                    View Course
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pricing Page -->
+        <div id="pricing" class="page">
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold text-dark mb-2">Pricing Plans</h1>
+                <p class="text-gray-600">Choose the plan that works best for your learning goals</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Free Plan -->
+                <div class="bg-white rounded-xl shadow-md p-8 text-center">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-dark mb-2">Free</h3>
+                        <div class="flex justify-center items-baseline">
+                            <span class="text-4xl font-bold">$0</span>
+                            <span class="text-gray-600 ml-1">/ forever</span>
+                        </div>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Access to basic courses</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Community support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Progress tracking</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-times mr-2"></i>
+                            <span>Certificates</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-times mr-2"></i>
+                            <span>Advanced courses</span>
+                        </li>
+                    </ul>
+                    <a class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-medium cursor-pointer nav-link" data-page="signup">
+                        Get Started
+                    </a>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="bg-white rounded-xl shadow-lg border-2 border-primary p-8 text-center relative">
+                    <div class="absolute top-0 right-0 bg-primary text-white px-4 py-1 rounded-bl-lg text-sm font-medium">
+                        Most Popular
+                    </div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-dark mb-2">Premium</h3>
+                        <div class="flex justify-center items-baseline">
+                            <span class="text-4xl font-bold">$19</span>
+                            <span class="text-gray-600 ml-1">/ month</span>
+                        </div>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>All free features</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>All advanced courses</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Downloadable certificates</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Priority support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Offline access</span>
+                        </li>
+                    </ul>
+                    <a class="block bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition cursor-pointer nav-link" data-page="signup">
+                        Get Started
+                    </a>
+                </div>
+                
+                <!-- Team Plan -->
+                <div class="bg-white rounded-xl shadow-md p-8 text-center">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-dark mb-2">Team</h3>
+                        <div class="flex justify-center items-baseline">
+                            <span class="text-4xl font-bold">$15</span>
+                            <span class="text-gray-600 ml-1">/ user / month</span>
+                        </div>
+                    </div>
+                    <ul class="mb-8 space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>All premium features</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Team management</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Progress analytics</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Single sign-on (SSO)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Dedicated account manager</span>
+                        </li>
+                    </ul>
+                    <a class="block bg-gray-100 text-gray-800 px-6 py-3 rounded-lg font-medium cursor-pointer nav-link" data-page="signup">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="bg-white rounded-xl shadow-md p-8">
+                <h2 class="text-2xl font-bold text-dark mb-6 text-center">Frequently Asked Questions</h2>
+                
+                <div class="space-y-4">
+                    <div class="border-b border-gray-200 pb-4">
+                        <h3 class="text-lg font-medium mb-2">Can I cancel my subscription anytime?</h3>
+                        <p class="text-gray-600">Yes, you can cancel your subscription at any time. Once canceled, you'll still have access until the end of your billing period.</p>
+                    </div>
+                    
+                    <div class="border-b border-gray-200 pb-4">
+                        <h3 class="text-lg font-medium mb-2">Do you offer discounts for students?</h3>
+                        <p class="text-gray-600">Yes, we offer a 50% discount for students with a valid educational email address. Contact our support team for more information.</p>
+                    </div>
+                    
+                    <div class="border-b border-gray-200 pb-4">
+                        <h3 class="text-lg font-medium mb-2">Can I try before I buy?</h3>
+                        <p class="text-gray-600">Absolutely! We offer a 7-day free trial for our Premium plan. No credit card required to start the trial.</p>
+                    </div>
+                    
+                    <div class="border-b border-gray-200 pb-4">
+                        <h3 class="text-lg font-medium mb-2">Are the certificates recognized?</h3>
+                        <p class="text-gray-600">Our certificates are widely recognized by employers and can be shared on LinkedIn and other professional networks.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-medium mb-2">What payment methods do you accept?</h3>
+                        <p class="text-gray-600">We accept all major credit cards, PayPal, and for annual plans, we also accept bank transfers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="about" class="page">
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold text-dark mb-2">About Office Mastery</h1>
+                <p class="text-gray-600">Learn more about our mission, team, and values</p>
+            </div>
+
+            <!-- Mission Section -->
+            <div class="bg-white rounded-xl shadow-md p-8 mb-8">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 mb-6 md:mb-0">
+                        <h2 class="text-2xl font-bold text-dark mb-4">Our Mission</h2>
+                        <p class="text-gray-600 mb-4">At Office Mastery, we believe that proficiency in Microsoft Office is not just a resume item—it's a fundamental skill that empowers people to work more efficiently, communicate more effectively, and achieve their professional goals.</p>
+                        <p class="text-gray-600">Our mission is to make quality Microsoft Office education accessible to everyone, regardless of their background or experience level. We combine expert instruction with interactive learning experiences to create a platform that actually works.</p>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="w-64 h-64 bg-blue-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-bullseye text-primary text-7xl"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Section -->
+            <div class="bg-white rounded-xl shadow-md p-8 mb-8">
+                <h2 class="text-2xl font-bold text-dark mb-6 text-center">Our Team</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-32 h-32 bg-blue-200 rounded-full mx-auto mb-4 overflow-hidden">
+                            <div class="w-full h-full flex items-center justify-center">
+                                <i class="fas fa-user text-5xl text-blue-600"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">Sarah Johnson</h3>
+                        <p class="text-primary mb-2">Founder & CEO</p>
+                        <p class="text-gray-600 text-sm">Former Microsoft MVP with 15+ years of experience in Office training</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-32 h-32 bg-green-200 rounded-full mx-auto mb-4 overflow-hidden">
+                            <div class="w-full h-full flex items-center justify-center">
+                                <i class="fas fa-user text-5xl text-green-600"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">Michael Chen</h3>
+                        <p class="text-primary mb-2">Head of Content</p>
+                        <p class="text-gray-600 text-sm">Education specialist with a focus on adult learning and skill development</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-32 h-32 bg-red-200 rounded-full mx-auto mb-4 overflow-hidden">
+                            <div class="w-full h-full flex items-center justify-center">
+                                <i class="fas fa-user text-5xl text-red-600"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">Emily Rodriguez</h3>
+                        <p class="text-primary mb-2">Lead Instructor</p>
+                        <p class="text-gray-600 text-sm">Certified Microsoft Trainer with a passion for making complex topics simple</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-32 h-32 bg-purple-200 rounded-full mx-auto mb-4 overflow-hidden">
+                            <div class="w-full h-full flex items-center justify-center">
+                                <i class="fas fa-user text-5xl text-purple-600"></i>
+                            </div>
+                        </div>
+                        <h3 class="text-xl font-bold mb-1">David Kim</h3>
+                        <p class="text-primary mb-2">Product Developer</p>
+                        <p class="text-gray-600 text-sm">Full-stack developer focused on creating seamless learning experiences</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="bg-hero-pattern text-white rounded-xl shadow-md p-8 mb-8" style="background: linear-gradient(135deg, #2563eb 0%, #8b5cf6 100%);">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <p class="text-4xl font-bold mb-2">50,000+</p>
+                        <p class="text-blue-100">Students</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold mb-2">120+</p>
+                        <p class="text-blue-100">Countries</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold mb-2">96%</p>
+                        <p class="text-blue-100">Satisfaction Rate</p>
+                    </div>
+                    <div>
+                        <p class="text-4xl font-bold mb-2">12,000+</p>
+                        <p class="text-blue-100">Certificates Issued</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Values Section -->
+            <div class="bg-white rounded-xl shadow-md p-8">
+                <h2 class="text-2xl font-bold text-dark mb-6 text-center">Our Values</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-graduation-cap text-primary text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Quality Education</h3>
+                        <p class="text-gray-600">We're committed to providing the highest quality learning materials, created by industry experts.</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-hand-holding-heart text-green-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Accessibility</h3>
+                        <p class="text-gray-600">We believe everyone should have access to quality education, regardless of their background.</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-lightbulb text-purple-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Innovation</h3>
+                        <p class="text-gray-600">We continuously improve our platform and teaching methods to enhance the learning experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page">
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold text-dark mb-2">My Dashboard</h1>
+                <p class="text-gray-600">Track your progress and continue your learning journey</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                <!-- User Profile Card -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-primary text-2xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold">John Doe</h3>
+                            <p class="text-gray-600">Beginner Level</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">Course Progress</span>
+                            <span class="text-sm font-bold text-primary">42%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 42%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">Days Streak</span>
+                            <span class="text-sm font-bold text-primary">7</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between text-center mt-6">
+                        <div>
+                            <p class="text-2xl font-bold">4</p>
+                            <p class="text-sm text-gray-600">Courses</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold">12</p>
+                            <p class="text-sm text-gray-600">Lessons</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold">3</p>
+                            <p class="text-sm text-gray-600">Certs</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current Course -->
+                <div class="lg:col-span-2 bg-white rounded-xl shadow-md p-6">
+                    <h3 class="text-xl font-bold mb-4">Current Course: Microsoft Word Essentials</h3>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium">Course Progress</span>
+                            <span class="text-sm font-bold text-primary">65%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-primary h-3 rounded-full" style="width: 65%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg border-l-4 border-green-500">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <div>
+                                    <h5 class="font-medium">Introduction to Word</h5>
+                                    <p class="text-sm text-gray-600">Getting started with the interface</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">15 min</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg border-l-4 border-green-500">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                <div>
+                                    <h5 class="font-medium">Basic Formatting</h5>
+                                    <p class="text-sm text-gray-600">Text formatting tools</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">22 min</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg border-l-4 border-primary">
+                            <div class="flex items-center">
+                                <i class="fas fa-play-circle text-primary mr-3"></i>
+                                <div>
+                                    <h5 class="font-medium">Page Layout</h5>
+                                    <p class="text-sm text-gray-600">Margins, orientation and size</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">18 min</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-gray-100 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-lock text-gray-400 mr-3"></i>
+                                <div>
+                                    <h5 class="font-medium">Inserting Images</h5>
+                                    <p class="text-sm text-gray-600">Working with media</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">25 min</span>
+                        </div>
+                    </div>
+                    
+                    <button class="mt-6 bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition w-full">
+                        Continue Learning
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Achievements -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h3 class="text-xl font-bold mb-4">My Achievements</h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-yellow-100 rounded-lg p-4 text-center">
+                        <i class="fas fa-medal text-yellow-600 text-3xl mb-2"></i>
+                        <h4 class="font-bold">Quick Learner</h4>
+                        <p class="text-sm text-gray-600">Complete 5 lessons in a week</p>
+                    </div>
+                    
+                    <div class="bg-gray-100 rounded-lg p-4 text-center">
+                        <i class="fas fa-star text-gray-400 text-3xl mb-2"></i>
+                        <h4 class="font-bold">First Lesson</h4>
+                        <p class="text-sm text-gray-600">Complete your first lesson</p>
+                    </div>
+                    
+                    <div class="bg-gray-100 rounded-lg p-4 text-center">
+                        <i class="fas fa-trophy text-gray-400 text-3xl mb-2"></i>
+                        <h4 class="font-bold">Course Master</h4>
+                        <p class="text-sm text-gray-600">Complete a full course</p>
+                    </div>
+                    
+                    <div class="bg-gray-100 rounded-lg p-4 text-center">
+                        <i class="fas fa-certificate text-gray-400 text-3xl mb-2"></i>
+                        <h4 class="font-bold">Certified Pro</h4>
+                        <p class="text-sm text-gray-600">Earn 3 certificates</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recently Completed -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-xl font-bold mb-4">Recently Completed</h3>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left border-b border-gray-200">
+                                <th class="pb-2">Course</th>
+                                <th class="pb-2">Completion Date</th>
+                                <th class="pb-2">Score</th>
+                                <th class="pb-2">Certificate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3">Excel Basics</td>
+                                <td class="py-3">Aug 25, 2023</td>
+                                <td class="py-3">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">92%</span>
+                                </td>
+                                <td class="py-3">
+                                    <button class="text-primary hover:underline">
+                                        <i class="fas fa-download mr-1"></i> Download
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-3">PowerPoint Basics</td>
+                                <td class="py-3">Aug 18, 2023</td>
+                                <td class="py-3">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">88%</span>
+                                </td>
+                                <td class="py-3">
+                                    <button class="text-primary hover:underline">
+                                        <i class="fas fa-download mr-1"></i> Download
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3">Word Basics</td>
+                                <td class="py-3">Aug 10, 2023</td>
+                                <td class="py-3">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">95%</span>
+                                </td>
+                                <td class="py-3">
+                                    <button class="text-primary hover:underline">
+                                        <i class="fas fa-download mr-1"></i> Download
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Pages (Login, Signup, Admin, Course Detail) -->
+        <div id="login" class="page">
+            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md p-8">
+                <h2 class="text-2xl font-bold text-center text-dark mb-6">Sign In to Your Account</h2>
+                <form>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="email">Email Address</label>
+                        <input type="email" id="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2" for="password">Password</label>
+                        <input type="password" id="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Sign In
+                    </button>
+                </form>
+                <div class="mt-4 text-center">
+                    <a class="text-primary hover:underline">Forgot your password?</a>
+                </div>
+                <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+                    <p class="text-gray-600">Don't have an account? <a class="text-primary hover:underline cursor-pointer nav-link" data-page="signup">Sign up</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="signup" class="page">
+            <div class="max-w-md mx-auto bg-white rounded-xl shadow-md p-8">
+                <h2 class="text-2xl font-bold text-center text-dark mb-6">Create Your Account</h2>
+                <form>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="name">Full Name</label>
+                        <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2" for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2" for="signup-password">Password</label>
+                        <input type="password" id="signup-password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                        Create Account
+                    </button>
+                </form>
+                <div class="mt-6 pt-6 border-t border-gray-200 text-center">
+                    <p class="text-gray-600">Already have an account? <a class="text-primary hover:underline cursor-pointer nav-link" data-page="login">Sign in</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="admin" class="page">
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <h1 class="text-3xl font-bold text-dark mb-2">Admin Panel</h1>
+                <p class="text-gray-600">Manage courses, users, and platform settings</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Sidebar -->
+                <div class="md:col-span-1">
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="text-lg font-bold mb-4">Admin Menu</h3>
+                        <ul class="space-y-2">
+                            <li><a class="block p-2 rounded-lg bg-primary text-white">Dashboard</a></li>
+                            <li><a class="block p-2 rounded-lg hover:bg-gray-100">Course Management</a></li>
+                            <li><a class="block p-2 rounded-lg hover:bg-gray-100">User Management</a></li>
+                            <li><a class="block p-2 rounded-lg hover:bg-gray-100">Content Management</a></li>
+                            <li><a class="block p-2 rounded-lg hover:bg-gray-100">Certificates</a></li>
+                            <li><a class="block p-2 rounded-lg hover:bg-gray-100">Settings</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="md:col-span-3">
+                    <div class="bg-white rounded-xl shadow-md p-6 admin-panel">
+                        <h3 class="text-xl font-bold mb-6">Admin Dashboard</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold">Total Users</h4>
+                                    <i class="fas fa-users text-blue-600"></i>
+                                </div>
+                                <p class="text-3xl font-bold mt-2">2,548</p>
+                            </div>
+                            
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold">Active Courses</h4>
+                                    <i class="fas fa-book text-green-600"></i>
+                                </div>
+                                <p class="text-3xl font-bold mt-2">24</p>
+                            </div>
+                            
+                            <div class="bg-purple-50 p-4 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold">Certificates</h4>
+                                    <i class="fas fa-certificate text-purple-600"></i>
+                                </div>
+                                <p class="text-3xl font-bold mt-2">1,862</p>
+                            </div>
+                        </div>
+                        
+                        <h4 class="font-bold mb-4">Recent Signups</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="text-left border-b border-gray-200">
+                                        <th class="pb-2">Name</th>
+                                        <th class="pb-2">Email</th>
+                                        <th class="pb-2">Join Date</th>
+                                        <th class="pb-2">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-3">John Smith</td>
+                                        <td class="py-3">john@example.com</td>
+                                        <td class="py-3">Aug 28, 2023</td>
+                                        <td class="py-3">
+                                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">Active</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-3">Emma Johnson</td>
+                                        <td class="py-3">emma@example.com</td>
+                                        <td class="py-3">Aug 27, 2023</td>
+                                        <td class="py-3">
+                                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">Active</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-3">Michael Brown</td>
+                                        <td class="py-3">michael@example.com</td>
+                                        <td class="py-3">Aug 26, 2023</td>
+                                        <td class="py-3">
+                                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded">Pending</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="course-detail" class="page">
+            <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div>
+                        <h1 class="text-3xl font-bold text-dark mb-2">Microsoft Word Essentials</h1>
+                        <p class="text-gray-600">Learn the fundamentals of document creation and formatting in Microsoft Word</p>
+                    </div>
+                    <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full mt-4 md:mt-0">FREE</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <!-- Course Content -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <h2 class="text-xl font-bold mb-4">Course Content</h2>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                    <div>
+                                        <h5 class="font-medium">1. Introduction to Word</h5>
+                                        <p class="text-sm text-gray-600">Getting started with the interface</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm text-gray-500">15 min</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                    <div>
+                                        <h5 class="font-medium">2. Basic Formatting</h5>
+                                        <p class="text-sm text-gray-600">Text formatting tools</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm text-gray-500">22 min</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-play-circle text-primary mr-3"></i>
+                                    <div>
+                                        <h5 class="font-medium">3. Page Layout</h5>
+                                        <p class="text-sm text-gray-600">Margins, orientation and size</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm text-gray-500">18 min</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-gray-100 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-lock text-gray-400 mr-3"></i>
+                                    <div>
+                                        <h5 class="font-medium">4. Inserting Images</h5>
+                                        <p class="text-sm text-gray-600">Working with media</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm text-gray-500">25 min</span>
+                            </div>
+                            
+                            <div class="flex items-center justify-between p-3 bg-gray-100 rounded-lg">
+                                <div class="flex items-center">
+                                    <i class="fas fa-lock text-gray-400 mr-3"></i>
+                                    <div>
+                                        <h5 class="font-medium">5. Tables and Charts</h5>
+                                        <p class="text-sm text-gray-600">Adding visual elements</p>
+                                    </div>
+                                </div>
+                                <span class="text-sm text-gray-500">20 min</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Current Lesson -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-xl font-bold mb-4">Page Layout</h2>
+                        
+                        <div class="mb-6">
+                            <div class="aspect-w-16 aspect-h-9 bg-gray-200 rounded-lg mb-4">
+                                <div class="w-full h-full flex items-center justify-center">
+                                    <i class="fas fa-image text-4xl text-gray-400"></i>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 mb-4">In this lesson, you'll learn how to adjust page margins, orientation, and size to create professionally formatted documents.</p>
+                            
+                            <h3 class="font-bold mb-2">Key Topics:</h3>
+                            <ul class="list-disc list-inside text-gray-600 mb-4">
+                                <li>Setting page margins</li>
+                                <li>Changing page orientation</li>
+                                <li>Adjusting paper size</li>
+                                <li>Using page breaks</li>
+                            </ul>
+                            
+                            <div class="bg-blue-50 border-l-4 border-primary p-4 mb-4">
+                                <p class="text-sm"><span class="font-bold">Pro Tip:</span> Use narrow margins (0.5 inches) for draft documents to save paper, and wider margins (1 inch) for final documents.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-between">
+                            <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-300 transition">
+                                <i class="fas fa-arrow-left mr-2"></i> Previous Lesson
+                            </button>
+                            <button class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition">
+                                Mark Complete <i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Course Info Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-xl shadow-md p-6 mb-6">
+                        <div class="aspect-w-16 aspect-h-9 bg-blue-200 rounded-lg mb-4">
+                            <div class="w-full h-full flex items-center justify-center">
+                                <i class="fas fa-file-word text-6xl text-blue-600"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium">Course Progress</span>
+                                <span class="text-sm font-bold text-primary">40%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 40%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-600 mb-1"><i class="fas fa-film text-gray-400 mr-2"></i> 12 lessons</p>
+                            <p class="text-sm text-gray-600 mb-1"><i class="fas fa-clock text-gray-400 mr-2"></i> 3h 20m total</p>
+                            <p class="text-sm text-gray-600"><i class="fas fa-trophy text-gray-400 mr-2"></i> Certificate included</p>
+                        </div>
+                        
+                        <button class="w-full bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition mb-4">
+                            Continue Learning
+                        </button>
+                        
+                        <button class="w-full bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition">
+                            <i class="fas fa-share-alt mr-2"></i> Share Course
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h3 class="font-bold mb-4">About Instructor</h3>
+                        
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-user text-blue-600"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Emily Rodriguez</h4>
+                                <p class="text-sm text-gray-600">Certified Microsoft Trainer</p>
+                            </div>
+                        </div>
+                        
+                        <p class="text-sm text-gray-600">Emily has over 10 years of experience teaching Microsoft Office to professionals and students. She specializes in making complex features easy to understand.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12 mt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+                            <i class="fas fa-book-open text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold">Office Mastery</span>
+                    </div>
+                    <p class="text-gray-400">Learn Microsoft Office suite effectively with our interactive courses and hands-on approach.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Platform</h4>
+                    <ul class="space-y-2">
+                        <li><a class="text-gray-400 hover:text-white cursor-pointer nav-link" data-page="courses">Courses</a></li>
+                        <li><a class="text-gray-400 hover:text-white cursor-pointer nav-link" data-page="pricing">Pricing</a></li>
+                        <li><a class="text-gray-400 hover:text-white cursor-pointer nav-link" data-page="about">About</a></li>
+                        <li><a class="text-gray-400 hover:text-white cursor-pointer nav-link" data-page="login">Sign In</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a class="text-gray-400 hover:text-white">Help Center</a></li>
+                        <li><a class="text-gray-400 hover:text-white">FAQ</a></li>
+                        <li><a class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Connect</h4>
+                    <div class="flex space-x-4 mb-4">
+                        <a class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center hover:bg-primary">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400">Subscribe to our newsletter</p>
+                    <div class="mt-2 flex">
+                        <input type="email" placeholder="Your email" class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-primary w-full">
+                        <button class="bg-primary px-4 py-2 rounded-r-lg hover:bg-blue-700">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 Office Mastery. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple page routing
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show the active page
+            showPage('home');
+            
+            // Add event listeners to navigation links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('data-page');
+                    showPage(page);
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                });
+            });
+            
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.toggle('hidden');
+            });
+            
+            // Course card hover effect
+            const courseCards = document.querySelectorAll('.course-card');
+            courseCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.classList.add('shadow-lg');
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.classList.remove('shadow-lg');
+                });
+            });
+        });
+        
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // Update active navigation link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('text-primary');
+                    link.classList.remove('text-gray-600');
+                } else {
+                    link.classList.remove('text-primary');
+                    link.classList.add('text-gray-600');
+                }
+            });
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Simulate backend functionality
+        const mockBackend = {
+            users: [
+                { id: 1, email: 'demo@example.com', password: 'password', name: 'Demo User' }
+            ],
+            courses: [
+                { id: 1, title: 'Microsoft Word Essentials', description: 'Learn the fundamentals of document creation and formatting', price: 0, lessons: 12 },
+                { id: 2, title: 'Microsoft Excel Basics', description: 'Master spreadsheets, formulas, and basic data analysis', price: 0, lessons: 10 },
+                { id: 3, title: 'PowerPoint Basics', description: 'Create engaging presentations with slides and animations', price: 0, lessons: 8 },
+                { id: 4, title: 'Word Advanced', description: 'Master advanced formatting, styles, and document automation', price: 19, lessons: 15 }
+            ],
+            currentUser: null,
+            
+            login(email, password) {
+                const user = this.users.find(u => u.email === email && u.password === password);
+                if (user) {
+                    this.currentUser = user;
+                    return { success: true, user };
+                }
+                return { success: false, error: 'Invalid credentials' };
+            },
+            
+            signup(name, email, password) {
+                const id = this.users.length + 1;
+                this.users.push({ id, name, email, password });
+                this.currentUser = { id, name, email };
+                return { success: true, user: this.currentUser };
+            },
+            
+            getCourses() {
+                return this.courses;
+            },
+            
+            getCourse(id) {
+                return this.courses.find(c => c.id === id);
+            }
+        };
+    </script>
+</body>
+</html>
